@@ -221,3 +221,57 @@ post {
     }
 }
 ------------------------------------------------------------------------------------------------------
+aws
+ssh -i examkey.pem ubuntu@<your-ec2-public-ip>
+
+Install all required software
+----
+sudo apt update
+sudo apt install docker.io -y
+sudo apt install git -y
+sudo apt install maven -y
+--------
+Give Docker permission
+------
+sudo usermod -aG docker $USER
+newgrp docker
+-----
+docker ps
+---
+git clone <your-github-repo-url>
+git clone https://github.com/vyshnavi/maven-java.git
+cd maven-java
+mvn clean package
+ls target
+--
+nano Dockerfile
+FROM tomcat:9
+COPY target/*.war /usr/local/tomcat/webapps/
+----
+docker build -t myapp .
+docker images
+You must see:
+myapp   latest
+----
+docker run -d --name app-demo -p 6060:8080 myapp
+docker ps
+Should show:
+0.0.0.0:6060->8080
+---
+⭐ STEP 9 — Open app in browser
+
+Use EC2 public IP:
+
+http://<public-ip>:6060
+---
+STEP 10 — (If app not opening) Fix Security Group
+
+In AWS EC2:
+
+Security Groups → Inbound Rules → Add Rule
+
+Type	Port	Source
+Custom TCP	6060	0.0.0.0/0
+HTTP	80	0.0.0.0/0
+
+Save → Refresh browser.
