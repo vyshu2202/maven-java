@@ -274,4 +274,22 @@ Type	Port	Source
 Custom TCP	6060	0.0.0.0/0
 HTTP	80	0.0.0.0/0
 
-Save → Refresh browser.
+Save → Refresh browser.----------------------------------------------------------------------------------
+scripted file : jenkinsfile :node {
+    stage('Build') {
+        echo "Building..."
+        bat 'mvn clean install'
+    }
+
+    stage('Test') {
+        echo "Testing..."
+        bat 'mvn test'
+    }
+
+    stage('Deploy') {
+        echo "Deploying..."
+        bat 'echo Deployment completed'
+    }
+}
+-----------------------------------------------------------------------------------------------------------
+app pasword:owfs rrkb bsfo fids
