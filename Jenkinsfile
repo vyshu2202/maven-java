@@ -1,15 +1,15 @@
 node{
   stage('Build'){
         echo 'started building...'
-        bat 'mvn clean install'
+        sh 'mvn clean install'
     }
   stage('Test'){
     echo 'started testing...'
-    bat 'mvn test'
+    sh 'mvn test'
   }
   stage('Deploy'){
     echo 'started Deploying...'
-    bat 'echo deployment completed'
+    sh 'echo deployment completed'
   }
   
 }
