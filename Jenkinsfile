@@ -1,26 +1,26 @@
-node {
+pipeline {
+    agent any
 
-    stage('Checkout') {
-        echo 'Checking out code...'
-        checkout scm
-    }
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building project...'
+            }
+        }
 
-    stage('Build') {
-        echo 'Started building...'
-        bat 'mvn clean install'
-    }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
 
-    stage('Test') {
-        echo 'Started testing...'
-        bat 'mvn test'
-    }
-
-    stage('Deploy') {
-        echo 'Started Deploying...'
-        bat 'mvn deploy'
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+            }
+        }
     }
 }
-
 // node {
 //     properties([
 //         pipelineTriggers([
